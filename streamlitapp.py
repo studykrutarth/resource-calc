@@ -48,7 +48,7 @@ col1, col2 = st.columns(2)
 with col1:
     bread_current = st.number_input("🍞 Bread (Current)", min_value=0, value=602600, step=1000)
     bread_rate_k = st.number_input("🍞 Bread (Rate / k per hour)", min_value=0.0, value=97.2, step=0.1)
-    bread_rate = bread_rate_k * 1000  # convert to actual
+    bread_rate = bread_rate_k * 1000
 
     stone_current = st.number_input("🪨 Stone (Current)", min_value=0, value=786200, step=1000)
     stone_rate_k = st.number_input("🪨 Stone (Rate / k per hour)", min_value=0.0, value=39.6, step=0.1)
