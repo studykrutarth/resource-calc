@@ -104,7 +104,7 @@ TRANSLATIONS = {
         "bottleneck": "🏆 瓶颈资源",
         "bottleneck_info": "最慢的是 {name} → 约 {h}小时 {m}分钟 达到目标（需要 {need_k:.1f}k）。",
         "select_lang": "Select language / Sprache wählen / 选择语言 / Choisir la langue"
-    }
+    },
      "es": {  # Spanish
         "title": "⚔️ Temporizador de Recursos Kingshot",
         "intro": "Ingresa **Objetivo (cantidad total)** y **Actual + Producción en miles (k)**. Ejemplo: `602.6` = 602,600 y `46.8` = 46,800/hora.",
@@ -234,4 +234,5 @@ if slowest:
 
 # Footer hint about adding languages
 st.caption("Tip: Add or edit translations in the TRANSLATIONS dict to support more languages.")
+
 
