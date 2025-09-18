@@ -18,15 +18,11 @@ def time_to_reach(target, current, rate):
 # -----------------------
 # Streamlit App
 # -----------------------
-
 st.set_page_config(page_title="Kingshot Resource Timer", layout="centered")
-
 st.title("⚔️ Kingshot Resource Timer")
 
-
-st.write("Enter **Target, Current, and Rate/hour** for each resource. "
-         "All targets are grouped at the top, just like HQ requirement format.")
-st.write("Enter Everything in xk/hour format")
+st.write("Enter **Target, Current, and Production Rate (in k/hour)** for each resource. "
+         "Example: `46.8` means 46,800 per hour.")
 
 # -----------------------
 # Targets Row
@@ -46,31 +42,35 @@ with tcol4:
 # -----------------------
 # Current + Rate inputs
 # -----------------------
-st.subheader("📊 Current & Production Rates")
+st.subheader("📊 Current & Production Rates (in k/hour)")
 
 col1, col2 = st.columns(2)
 with col1:
     bread_current = st.number_input("🍞 Bread (Current)", min_value=0, value=602600, step=1000)
-    bread_rate = st.number_input("🍞 Bread (Rate / hour)", min_value=0, value=97200, step=100)
+    bread_rate_k = st.number_input("🍞 Bread (Rate / k per hour)", min_value=0.0, value=97.2, step=0.1)
+    bread_rate = bread_rate_k * 1000  # convert to actual
 
     stone_current = st.number_input("🪨 Stone (Current)", min_value=0, value=786200, step=1000)
-    stone_rate = st.number_input("🪨 Stone (Rate / hour)", min_value=0, value=39600, step=100)
+    stone_rate_k = st.number_input("🪨 Stone (Rate / k per hour)", min_value=0.0, value=39.6, step=0.1)
+    stone_rate = stone_rate_k * 1000
 
 with col2:
     wood_current = st.number_input("🌲 Wood (Current)", min_value=0, value=548300, step=1000)
-    wood_rate = st.number_input("🌲 Wood (Rate / hour)", min_value=0, value=93600, step=100)
+    wood_rate_k = st.number_input("🌲 Wood (Rate / k per hour)", min_value=0.0, value=93.6, step=0.1)
+    wood_rate = wood_rate_k * 1000
 
     iron_current = st.number_input("⛓ Iron (Current)", min_value=0, value=513000, step=1000)
-    iron_rate = st.number_input("⛓ Iron (Rate / hour)", min_value=0, value=46800, step=100)
+    iron_rate_k = st.number_input("⛓ Iron (Rate / k per hour)", min_value=0.0, value=46.8, step=0.1)
+    iron_rate = iron_rate_k * 1000
 
 # -----------------------
 # Calculation
 # -----------------------
 resources = [
-    ("🍞 Bread", bread_target*1000, bread_current*1000, bread_rate*1000),
-    ("🌲 Wood", wood_target*1000, wood_current*1000, wood_rate*1000),
-    ("🪨 Stone", stone_target*1000, stone_current*1000, stone_rate*1000),
-    ("⛓ Iron", iron_target*1000, iron_current*1000, iron_rate*1000),
+    ("🍞 Bread", bread_target, bread_current, bread_rate),
+    ("🌲 Wood", wood_target, wood_current, wood_rate),
+    ("🪨 Stone", stone_target, stone_current, stone_rate),
+    ("⛓ Iron", iron_target, iron_current, iron_rate),
 ]
 
 st.subheader("⏱ Time Calculation")
@@ -83,7 +83,7 @@ for name, target, current, rate in resources:
     elif needed == 0:
         st.success(f"{name}: ✅ Already enough (current {current:,} / target {target:,})")
     else:
-        st.info(f"{name}: Need {needed:,}, time ≈ {h}h {m}m at {rate:,}/h")
+        st.info(f"{name}: Need {needed:,}, time ≈ {h}h {m}m at {rate/1000:.1f}k/h")
         if slowest is None or (h is not None and (h > slowest[1] or (h == slowest[1] and m > slowest[2]))):
             slowest = (name, h, m, needed)
 
@@ -91,4 +91,3 @@ if slowest:
     st.subheader("🏆 Bottleneck Resource")
     st.warning(f"The slowest is {slowest[0]} → about {slowest[1]}h {slowest[2]}m "
                f"to reach its target (needs {slowest[3]:,}).")
-
