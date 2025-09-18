@@ -21,31 +21,47 @@ def time_to_reach(target, current, rate):
 st.set_page_config(page_title="Kingshot Resource Timer", layout="centered")
 st.title("⚔️ Kingshot Resource Timer")
 
-st.write("Enter **target, current, and production rate** for each resource. The app will calculate how long until you reach the requirement.")
+st.write("Enter **Target, Current, and Rate/hour** for each resource. "
+         "All targets are grouped at the top, just like HQ requirement format.")
 
-st.subheader("📊 Resource Inputs")
+# -----------------------
+# Targets Row
+# -----------------------
+st.subheader("🎯 Resource Targets")
 
-# Layout like game screen
+tcol1, tcol2, tcol3, tcol4 = st.columns(4)
+with tcol1:
+    bread_target = st.number_input("🍞 Bread Target", min_value=0, value=700000, step=10000)
+with tcol2:
+    wood_target = st.number_input("🌲 Wood Target", min_value=0, value=700000, step=10000)
+with tcol3:
+    stone_target = st.number_input("🪨 Stone Target", min_value=0, value=400000, step=10000)
+with tcol4:
+    iron_target = st.number_input("⛓ Iron Target", min_value=0, value=200000, step=10000)
+
+# -----------------------
+# Current + Rate inputs
+# -----------------------
+st.subheader("📊 Current & Production Rates")
+
 col1, col2 = st.columns(2)
 with col1:
-    bread_target = st.number_input("🍞 Bread (Target)", min_value=0, value=700000, step=10000)
     bread_current = st.number_input("🍞 Bread (Current)", min_value=0, value=602600, step=1000)
     bread_rate = st.number_input("🍞 Bread (Rate / hour)", min_value=0, value=97200, step=100)
 
-    stone_target = st.number_input("🪨 Stone (Target)", min_value=0, value=400000, step=10000)
     stone_current = st.number_input("🪨 Stone (Current)", min_value=0, value=786200, step=1000)
     stone_rate = st.number_input("🪨 Stone (Rate / hour)", min_value=0, value=39600, step=100)
 
 with col2:
-    wood_target = st.number_input("🌲 Wood (Target)", min_value=0, value=700000, step=10000)
     wood_current = st.number_input("🌲 Wood (Current)", min_value=0, value=548300, step=1000)
     wood_rate = st.number_input("🌲 Wood (Rate / hour)", min_value=0, value=93600, step=100)
 
-    iron_target = st.number_input("⛓ Iron (Target)", min_value=0, value=200000, step=10000)
     iron_current = st.number_input("⛓ Iron (Current)", min_value=0, value=513000, step=1000)
     iron_rate = st.number_input("⛓ Iron (Rate / hour)", min_value=0, value=46800, step=100)
 
-# Resources list
+# -----------------------
+# Calculation
+# -----------------------
 resources = [
     ("🍞 Bread", bread_target, bread_current, bread_rate),
     ("🌲 Wood", wood_target, wood_current, wood_rate),
@@ -55,8 +71,7 @@ resources = [
 
 st.subheader("⏱ Time Calculation")
 
-slowest = None  # Track bottleneck
-
+slowest = None
 for name, target, current, rate in resources:
     needed, h, m = time_to_reach(target, current, rate)
     if rate == 0 and needed > 0:
@@ -70,4 +85,5 @@ for name, target, current, rate in resources:
 
 if slowest:
     st.subheader("🏆 Bottleneck Resource")
-    st.warning(f"The slowest is {slowest[0]} → about {slowest[1]}h {slowest[2]}m to reach its target (needs {slowest[3]:,}).")
+    st.warning(f"The slowest is {slowest[0]} → about {slowest[1]}h {slowest[2]}m "
+               f"to reach its target (needs {slowest[3]:,}).")
