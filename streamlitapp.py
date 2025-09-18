@@ -18,11 +18,15 @@ def time_to_reach(target, current, rate):
 # -----------------------
 # Streamlit App
 # -----------------------
+
 st.set_page_config(page_title="Kingshot Resource Timer", layout="centered")
+
 st.title("⚔️ Kingshot Resource Timer")
+
 
 st.write("Enter **Target, Current, and Rate/hour** for each resource. "
          "All targets are grouped at the top, just like HQ requirement format.")
+st.write("Enter Everything in xk/hour format")
 
 # -----------------------
 # Targets Row
@@ -63,10 +67,10 @@ with col2:
 # Calculation
 # -----------------------
 resources = [
-    ("🍞 Bread", bread_target, bread_current, bread_rate),
-    ("🌲 Wood", wood_target, wood_current, wood_rate),
-    ("🪨 Stone", stone_target, stone_current, stone_rate),
-    ("⛓ Iron", iron_target, iron_current, iron_rate),
+    ("🍞 Bread", bread_target*1000, bread_current*1000, bread_rate*1000),
+    ("🌲 Wood", wood_target*1000, wood_current*1000, wood_rate*1000),
+    ("🪨 Stone", stone_target*1000, stone_current*1000, stone_rate*1000),
+    ("⛓ Iron", iron_target*1000, iron_current*1000, iron_rate*1000),
 ]
 
 st.subheader("⏱ Time Calculation")
@@ -87,3 +91,4 @@ if slowest:
     st.subheader("🏆 Bottleneck Resource")
     st.warning(f"The slowest is {slowest[0]} → about {slowest[1]}h {slowest[2]}m "
                f"to reach its target (needs {slowest[3]:,}).")
+
