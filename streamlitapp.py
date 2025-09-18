@@ -104,6 +104,31 @@ TRANSLATIONS = {
         "bottleneck": "🏆 瓶颈资源",
         "bottleneck_info": "最慢的是 {name} → 约 {h}小时 {m}分钟 达到目标（需要 {need_k:.1f}k）。",
         "select_lang": "Select language / Sprache wählen / 选择语言 / Choisir la langue"
+    }
+     "es": {  # Spanish
+        "title": "⚔️ Temporizador de Recursos Kingshot",
+        "intro": "Ingresa **Objetivo (cantidad total)** y **Actual + Producción en miles (k)**. Ejemplo: `602.6` = 602,600 y `46.8` = 46,800/hora.",
+        "targets": "🎯 Objetivos de Recursos (cantidades totales)",
+        "current_rates": "📊 Actual & Tasas de Producción (en miles)",
+        "bread_target": "🍞 Objetivo Pan",
+        "wood_target": "🌲 Objetivo Madera",
+        "stone_target": "🪨 Objetivo Piedra",
+        "iron_target": "⛓ Objetivo Hierro",
+        "bread_current_k": "🍞 Pan (Actual k)",
+        "bread_rate_k": "🍞 Pan (Tasa k/h)",
+        "wood_current_k": "🌲 Madera (Actual k)",
+        "wood_rate_k": "🌲 Madera (Tasa k/h)",
+        "stone_current_k": "🪨 Piedra (Actual k)",
+        "stone_rate_k": "🪨 Piedra (Tasa k/h)",
+        "iron_current_k": "⛓ Hierro (Actual k)",
+        "iron_rate_k": "⛓ Hierro (Tasa k/h)",
+        "time_calc": "⏱ Cálculo de Tiempo",
+        "already_enough": "✅ Ya tienes suficiente (actual {cur_k:.1f}k / objetivo {target:,})",
+        "need_info": "{name}: Faltan {need_k:.1f}k, tiempo ≈ {h}h {m}m a {rate_k:.1f}k/h",
+        "rate_zero": "{name}: ⚠️ Producción es 0 — no se puede alcanzar el objetivo.",
+        "bottleneck": "🏆 Recurso Limitante",
+        "bottleneck_info": "El más lento es {name} → aproximadamente {h}h {m}m para alcanzar el objetivo (faltan {need_k:.1f}k).",
+        "select_lang": "Seleccionar idioma / Select language / Sprache wählen / 选择语言 / Choisir la langue"
     },
 }
 
@@ -112,6 +137,7 @@ LANG_OPTIONS = {
     "Deutsch (German)": "de",
     "Français (French)": "fr",
     "中文 (简体)": "zh",
+    "Español (Spanish)": "es"
 }
 
 # -----------------------
@@ -208,3 +234,4 @@ if slowest:
 
 # Footer hint about adding languages
 st.caption("Tip: Add or edit translations in the TRANSLATIONS dict to support more languages.")
+
